@@ -12,4 +12,9 @@ class Periodo extends Model
         'nombre',
         'descripcion',
     ];
+
+    public function gestion()
+    {
+        return $this->belongsTo(Gestion::class);
+    }
 }

@@ -36,6 +36,11 @@ class PeriodoResource extends Resource
 
                     Forms\Components\Textarea::make('descripcion')
                         ->nullable(),
+
+                    Forms\Components\Select::make('gestion_id')
+                        ->label('Gestión')
+                        ->relationship('gestion', 'nombre')
+                        ->required(),
                 ])
             ]);
     }

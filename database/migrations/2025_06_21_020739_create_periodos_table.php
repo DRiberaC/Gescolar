@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('nombre')->unique();
             $table->text('descripcion')->nullable();
 
+            $table->unsignedBigInteger('gestion_id')->nullable();
+            $table->foreign('gestion_id')->references('id')->on('gestiones')->onDelete('set null');
+
             $table->timestamps();
         });
     }
