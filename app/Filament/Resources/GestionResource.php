@@ -17,7 +17,7 @@ class GestionResource extends Resource
 {
     protected static ?string $model = Gestion::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
     protected static ?string $label = 'Gestión';
     protected static ?string $pluralLabel = 'Gestiones';

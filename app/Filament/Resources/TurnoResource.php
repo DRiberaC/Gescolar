@@ -17,7 +17,7 @@ class TurnoResource extends Resource
 {
     protected static ?string $model = Turno::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-clock';
 
     protected static ?string $label = 'Turno';
     protected static ?string $pluralLabel = 'Turnos';

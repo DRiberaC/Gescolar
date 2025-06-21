@@ -17,7 +17,7 @@ class NivelResource extends Resource
 {
     protected static ?string $model = Nivel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-squares-2x2';
 
     protected static ?string $label = 'Nivel';
     protected static ?string $pluralLabel = 'Niveles';
