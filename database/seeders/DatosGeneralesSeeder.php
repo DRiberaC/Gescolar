@@ -11,6 +11,7 @@ use App\Models\Nivel;
 use App\Models\Turno;
 use App\Models\Periodo;
 use App\Models\Grado;
+use App\Models\Paralelo;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -79,6 +80,17 @@ class DatosGeneralesSeeder extends Seeder
             'nombre' => 'Segundo',
             'descripcion' => 'Segundo Grado',
             'nivel_id' => Nivel::where('nombre', 'Secundaria')->first()->id,
+        ]);
+
+        Paralelo::create([
+            'nombre' => 'A',
+            'descripcion' => 'Paralelo A',
+            'grado_id' => Grado::where('nombre', 'Primero')->first()->id,
+        ]);
+        Paralelo::create([
+            'nombre' => 'B',
+            'descripcion' => 'Paralelo B',
+            'grado_id' => Grado::where('nombre', 'Primero')->first()->id,
         ]);
     }
 }

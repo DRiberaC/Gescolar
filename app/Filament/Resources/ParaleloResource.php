@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GradoResource\Pages;
-use App\Filament\Resources\GradoResource\RelationManagers;
-use App\Models\Grado;
+use App\Filament\Resources\ParaleloResource\Pages;
+use App\Filament\Resources\ParaleloResource\RelationManagers;
+use App\Models\Paralelo;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class GradoResource extends Resource
+class ParaleloResource extends Resource
 {
-    protected static ?string $model = Grado::class;
+    protected static ?string $model = Paralelo::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $label = 'Grado';
-    protected static ?string $pluralLabel = 'Grados';
-
-    protected static ?string $slug = 'grado';
 
     public static function form(Form $form): Form
     {
@@ -37,9 +32,9 @@ class GradoResource extends Resource
                     Forms\Components\Textarea::make('descripcion')
                         ->nullable(),
 
-                    Forms\Components\Select::make('nivel_id')
-                        ->label('Nivel')
-                        ->relationship('nivel', 'nombre')
+                    Forms\Components\Select::make('grado_id')
+                        ->label('Grado')
+                        ->relationship('grado', 'nombre')
                         ->required(),
                 ])
             ]);
@@ -51,14 +46,9 @@ class GradoResource extends Resource
             ->columns([
                 // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
-                Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50)->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('nivel.nombre')->sortable()->label('Nivel'),
-                Tables\Columns\TextColumn::make('paralelos')
-                    ->label('Paralelos')
-                    ->formatStateUsing(function (Grado $record) {
-                        return $record->paralelos->pluck('nombre')->implode(', ');
-                    }),
-                // Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
+                Tables\Columns\TextColumn::make('grado.nombre')->sortable()->label('Grado'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //
@@ -83,9 +73,9 @@ class GradoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGrados::route('/'),
-            'create' => Pages\CreateGrado::route('/crear'),
-            'edit' => Pages\EditGrado::route('/{record}/editar'),
+            'index' => Pages\ListParalelos::route('/'),
+            'create' => Pages\CreateParalelo::route('/crear'),
+            'edit' => Pages\EditParalelo::route('/{record}/editar'),
         ];
     }
 }
