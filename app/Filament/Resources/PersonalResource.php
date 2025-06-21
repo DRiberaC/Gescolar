@@ -67,8 +67,10 @@ class PersonalResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ap_paterno')
+                    ->label('Apellido Paterno')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ap_materno')
+                    ->label('Apellido Materno')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('ci')
                     ->searchable(),

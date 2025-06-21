@@ -13,6 +13,9 @@ use App\Models\Periodo;
 use App\Models\Grado;
 use App\Models\Paralelo;
 use App\Models\Materia;
+use App\Models\Personal;
+
+use Faker\Factory as Faker;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -114,5 +117,26 @@ class DatosGeneralesSeeder extends Seeder
             'nombre' => 'Geografía',
             'descripcion' => 'Materia de geografía',
         ]);
+
+        $faker = Faker::create();
+
+        for ($i = 0; $i < 10; $i++) {
+            // Crear un usuario
+            $user = User::factory()->create();
+
+            // Crear un personal asociado con el usuario
+            Personal::create([
+                'nombre' => $faker->firstName(),
+                'ap_paterno' => $faker->lastName(),
+                'ap_materno' => $faker->lastName(),
+                'ci' => $faker->unique()->randomNumber(9),
+                'fecha_nacimiento' => $faker->date('Y-m-d'),
+                'direccion' => $faker->address,
+                'telefono' => $faker->phoneNumber(),
+                'correo_electronico' => $faker->unique()->safeEmail,
+                'cargo' => 'docente', //$faker->jobTitle(),
+                'user_id' => $user->id, // Asociar con el usuario creado
+            ]);
+        }
     }
 }
