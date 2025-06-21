@@ -51,6 +51,6 @@ class Matricula extends Model
     // Relación con el modelo Paralelo (si es nullable)
     public function paralelo()
     {
-        return $this->belongsTo(Paralelo::class, 'paralelo_id')->nullable();
+        return $this->belongsTo(Paralelo::class);
     }
 }
