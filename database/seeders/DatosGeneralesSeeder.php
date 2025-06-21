@@ -6,6 +6,8 @@ use Illuminate\Database\Seeder;
 
 use App\Models\User;
 use App\Models\Configuracion;
+use App\Models\Gestion;
+use App\Models\Nivel;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -27,6 +29,22 @@ class DatosGeneralesSeeder extends Seeder
             'direccion' => 'Calle Principal, Ciudad, País',
             'telefono' => '1234567890',
             'correo_electronico' => 'admin@mail.com',
+        ]);
+
+        Gestion::create([
+            'nombre' => '2024'
+        ]);
+        Gestion::create([
+            'nombre' => '2025'
+        ]);
+
+        Nivel::create([
+            'nombre' => 'Primer Grado',
+            'descripcion' => 'Este es el primer nivel de educación',
+        ]);
+        Nivel::create([
+            'nombre' => 'Segundo Grado',
+            'descripcion' => 'Este es el segundo nivel de educación',
         ]);
     }
 }
