@@ -10,6 +10,7 @@ use App\Models\Gestion;
 use App\Models\Nivel;
 use App\Models\Turno;
 use App\Models\Periodo;
+use App\Models\Grado;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -41,11 +42,11 @@ class DatosGeneralesSeeder extends Seeder
         ]);
 
         Nivel::create([
-            'nombre' => 'Primer Grado',
+            'nombre' => 'Primaria',
             'descripcion' => 'Este es el primer nivel de educación',
         ]);
         Nivel::create([
-            'nombre' => 'Segundo Grado',
+            'nombre' => 'Secundaria',
             'descripcion' => 'Este es el segundo nivel de educación',
         ]);
 
@@ -67,6 +68,17 @@ class DatosGeneralesSeeder extends Seeder
             'nombre' => 'Periodo 2',
             'descripcion' => 'Este es el segundo periodo del año',
             'gestion_id' => Gestion::where('nombre', '2024')->first()->id,
+        ]);
+
+        Grado::create([
+            'nombre' => 'Primero',
+            'descripcion' => 'Primero Grado',
+            'nivel_id' => Nivel::where('nombre', 'Primaria')->first()->id,
+        ]);
+        Grado::create([
+            'nombre' => 'Segundo',
+            'descripcion' => 'Segundo Grado',
+            'nivel_id' => Nivel::where('nombre', 'Secundaria')->first()->id,
         ]);
     }
 }

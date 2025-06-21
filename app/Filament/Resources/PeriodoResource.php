@@ -52,6 +52,7 @@ class PeriodoResource extends Resource
                 // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
+                Tables\Columns\TextColumn::make('gestion.nombre')->sortable()->label('Gestión'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
@@ -78,8 +79,8 @@ class PeriodoResource extends Resource
     {
         return [
             'index' => Pages\ListPeriodos::route('/'),
-            'create' => Pages\CreatePeriodo::route('/create'),
-            'edit' => Pages\EditPeriodo::route('/{record}/edit'),
+            'create' => Pages\CreatePeriodo::route('/crear'),
+            'edit' => Pages\EditPeriodo::route('/{record}/editar'),
         ];
     }
 }

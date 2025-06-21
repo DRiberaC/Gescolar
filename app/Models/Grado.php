@@ -4,17 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Nivel extends Model
+class Grado extends Model
 {
-    protected $table = 'niveles';
+    protected $table = 'grados';
 
     protected $fillable = [
         'nombre',
         'descripcion',
+        'nivel_id',
     ];
 
-    public function grados()
+    public function nivel()
     {
-        return $this->hasMany(Grado::class);
+        return $this->belongsTo(Nivel::class);
     }
 }

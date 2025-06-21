@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TurnoResource\Pages;
-use App\Filament\Resources\TurnoResource\RelationManagers;
-use App\Models\Turno;
+use App\Filament\Resources\GradoResource\Pages;
+use App\Filament\Resources\GradoResource\RelationManagers;
+use App\Models\Grado;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,16 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TurnoResource extends Resource
+class GradoResource extends Resource
 {
-    protected static ?string $model = Turno::class;
+    protected static ?string $model = Grado::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $label = 'Turno';
-    protected static ?string $pluralLabel = 'Turnos';
+    protected static ?string $label = 'Grado';
+    protected static ?string $pluralLabel = 'Grados';
 
-    protected static ?string $slug = 'turno';
+    protected static ?string $slug = 'grado';
 
     public static function form(Form $form): Form
     {
@@ -36,6 +36,11 @@ class TurnoResource extends Resource
 
                     Forms\Components\Textarea::make('descripcion')
                         ->nullable(),
+
+                    Forms\Components\Select::make('nivel_id')
+                        ->label('Nivel')
+                        ->relationship('nivel', 'nombre')
+                        ->required(),
                 ])
             ]);
     }
@@ -47,6 +52,7 @@ class TurnoResource extends Resource
                 // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
+                Tables\Columns\TextColumn::make('nivel.nombre')->sortable()->label('Nivel'),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
@@ -72,9 +78,9 @@ class TurnoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTurnos::route('/'),
-            'create' => Pages\CreateTurno::route('/crear'),
-            'edit' => Pages\EditTurno::route('/{record}/editar'),
+            'index' => Pages\ListGrados::route('/'),
+            'create' => Pages\CreateGrado::route('/crear'),
+            'edit' => Pages\EditGrado::route('/{record}/editar'),
         ];
     }
 }
