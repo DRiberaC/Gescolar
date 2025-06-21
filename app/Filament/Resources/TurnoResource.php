@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\GestionResource\Pages;
-use App\Filament\Resources\GestionResource\RelationManagers;
-use App\Models\Gestion;
+use App\Filament\Resources\TurnoResource\Pages;
+use App\Filament\Resources\TurnoResource\RelationManagers;
+use App\Models\Turno;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,31 +13,29 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class GestionResource extends Resource
+class TurnoResource extends Resource
 {
-    protected static ?string $model = Gestion::class;
+    protected static ?string $model = Turno::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $label = 'Gestión';
-    protected static ?string $pluralLabel = 'Gestiones';
+    protected static ?string $label = 'Turno';
+    protected static ?string $pluralLabel = 'Turnos';
 
-    protected static ?string $slug = 'gestion';
+    protected static ?string $slug = 'turno';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Section::make()->schema([
-                    Forms\Components\TextInput::make('nombre')->required()->label('Año de la Gestión')
-                        ->numeric()
-                        ->minValue(2000)
-                        ->maxValue(2050)
-                        ->default(fn() => date('Y'))
+                    Forms\Components\TextInput::make('nombre')
+                        ->required()
+                        ->maxLength(255)
                         ->unique(ignoreRecord: true),
-                ])->columns([
-                    'sm' => 2,
-                    'xl' => 2,
+
+                    Forms\Components\Textarea::make('descripcion')
+                        ->nullable(),
                 ])
             ]);
     }
@@ -47,7 +45,8 @@ class GestionResource extends Resource
         return $table
             ->columns([
                 // Tables\Columns\TextColumn::make('id')->sortable(),
-                Tables\Columns\TextColumn::make('nombre'),
+                Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
@@ -55,7 +54,6 @@ class GestionResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,9 +72,9 @@ class GestionResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListGestions::route('/'),
-            'create' => Pages\CreateGestion::route('/crear'),
-            'edit' => Pages\EditGestion::route('/{record}/editar'),
+            'index' => Pages\ListTurnos::route('/'),
+            'create' => Pages\CreateTurno::route('/create'),
+            'edit' => Pages\EditTurno::route('/{record}/edit'),
         ];
     }
 }

@@ -6,7 +6,6 @@ use App\Filament\Resources\NivelResource\Pages;
 use App\Filament\Resources\NivelResource\RelationManagers;
 use App\Models\Nivel;
 use Filament\Forms;
-use Filament\Forms\Components\Section;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -29,7 +28,7 @@ class NivelResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()->schema([
+                Forms\Components\Section::make()->schema([
                     Forms\Components\TextInput::make('nombre')
                         ->required()
                         ->maxLength(255)
@@ -45,7 +44,7 @@ class NivelResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('id')->sortable(),
+                // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),

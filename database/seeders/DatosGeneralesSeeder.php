@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Configuracion;
 use App\Models\Gestion;
 use App\Models\Nivel;
+use App\Models\Turno;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -45,6 +46,15 @@ class DatosGeneralesSeeder extends Seeder
         Nivel::create([
             'nombre' => 'Segundo Grado',
             'descripcion' => 'Este es el segundo nivel de educación',
+        ]);
+
+        Turno::create([
+            'nombre' => 'Matutino',
+            'descripcion' => 'Turno matutino',
+        ]);
+        Turno::create([
+            'nombre' => 'Vespertino',
+            'descripcion' => 'Turno vespertino',
         ]);
     }
 }
