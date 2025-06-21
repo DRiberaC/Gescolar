@@ -9,6 +9,7 @@ use App\Models\Configuracion;
 use App\Models\Gestion;
 use App\Models\Nivel;
 use App\Models\Turno;
+use App\Models\Periodo;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -55,6 +56,17 @@ class DatosGeneralesSeeder extends Seeder
         Turno::create([
             'nombre' => 'Vespertino',
             'descripcion' => 'Turno vespertino',
+        ]);
+
+        Periodo::create([
+            'nombre' => 'Periodo 1',
+            'descripcion' => 'Este es el primer periodo del año',
+            'gestion_id' => Gestion::where('nombre', '2024')->first()->id,
+        ]);
+        Periodo::create([
+            'nombre' => 'Periodo 2',
+            'descripcion' => 'Este es el segundo periodo del año',
+            'gestion_id' => Gestion::where('nombre', '2024')->first()->id,
         ]);
     }
 }
