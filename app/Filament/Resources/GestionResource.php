@@ -48,7 +48,7 @@ class GestionResource extends Resource
             ->columns([
                 // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                // Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

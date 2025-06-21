@@ -47,7 +47,7 @@ class NivelResource extends Resource
                 // Tables\Columns\TextColumn::make('id')->sortable(),
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                // Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

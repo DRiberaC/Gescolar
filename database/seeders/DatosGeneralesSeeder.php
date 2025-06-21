@@ -12,6 +12,7 @@ use App\Models\Turno;
 use App\Models\Periodo;
 use App\Models\Grado;
 use App\Models\Paralelo;
+use App\Models\Materia;
 
 class DatosGeneralesSeeder extends Seeder
 {
@@ -91,6 +92,27 @@ class DatosGeneralesSeeder extends Seeder
             'nombre' => 'B',
             'descripcion' => 'Paralelo B',
             'grado_id' => Grado::where('nombre', 'Primero')->first()->id,
+        ]);
+
+        Materia::create([
+            'nombre' => 'Matemáticas',
+            'descripcion' => 'Materia de matemáticas',
+        ]);
+        Materia::create([
+            'nombre' => 'Lengua',
+            'descripcion' => 'Materia de lengua',
+        ]);
+        Materia::create([
+            'nombre' => 'Ciencias Naturales',
+            'descripcion' => 'Materia de ciencias naturales',
+        ]);
+        Materia::create([
+            'nombre' => 'Historia',
+            'descripcion' => 'Materia de historia',
+        ]);
+        Materia::create([
+            'nombre' => 'Geografía',
+            'descripcion' => 'Materia de geografía',
         ]);
     }
 }

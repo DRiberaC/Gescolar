@@ -48,7 +48,7 @@ class ParaleloResource extends Resource
                 Tables\Columns\TextColumn::make('nombre')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->sortable()->limit(50),
                 Tables\Columns\TextColumn::make('grado.nombre')->sortable()->label('Grado'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                // Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
                 //

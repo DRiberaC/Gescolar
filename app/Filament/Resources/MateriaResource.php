@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\TurnoResource\Pages;
-use App\Filament\Resources\TurnoResource\RelationManagers;
-use App\Models\Turno;
+use App\Filament\Resources\MateriaResource\Pages;
+use App\Filament\Resources\MateriaResource\RelationManagers;
+use App\Models\Materia;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,11 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class TurnoResource extends Resource
+class MateriaResource extends Resource
 {
-    protected static ?string $model = Turno::class;
+    protected static ?string $model = Materia::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    protected static ?string $label = 'Turno';
-    protected static ?string $pluralLabel = 'Turnos';
-
-    protected static ?string $slug = 'turno';
 
     public static function form(Form $form): Form
     {
@@ -72,9 +67,9 @@ class TurnoResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListTurnos::route('/'),
-            'create' => Pages\CreateTurno::route('/crear'),
-            'edit' => Pages\EditTurno::route('/{record}/editar'),
+            'index' => Pages\ListMaterias::route('/'),
+            'create' => Pages\CreateMateria::route('/crear'),
+            'edit' => Pages\EditMateria::route('/{record}/editar'),
         ];
     }
 }
