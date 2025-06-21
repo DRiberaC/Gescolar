@@ -14,6 +14,8 @@ use App\Models\Grado;
 use App\Models\Paralelo;
 use App\Models\Materia;
 use App\Models\Personal;
+use App\Models\Estudiante;
+use App\Models\Tutor;
 
 use Faker\Factory as Faker;
 
@@ -136,6 +138,38 @@ class DatosGeneralesSeeder extends Seeder
                 'correo_electronico' => $faker->unique()->safeEmail,
                 'cargo' => 'docente', //$faker->jobTitle(),
                 'user_id' => $user->id, // Asociar con el usuario creado
+            ]);
+        }
+
+        for ($i = 0; $i < 5; $i++) {
+            // Crear un usuario
+
+            // Crear un personal asociado con el usuario
+            Estudiante::create([
+                'nombre' => $faker->firstName(),
+                'ap_paterno' => $faker->lastName(),
+                'ap_materno' => $faker->lastName(),
+                'ci' => $faker->unique()->randomNumber(9),
+                'fecha_nacimiento' => $faker->date('Y-m-d'),
+                'direccion' => $faker->address,
+                'telefono' => $faker->phoneNumber(),
+                'correo_electronico' => $faker->unique()->safeEmail,
+            ]);
+        }
+
+        for ($i = 0; $i < 5; $i++) {
+            // Crear un usuario
+
+            // Crear un personal asociado con el usuario
+            Tutor::create([
+                'nombre' => $faker->firstName(),
+                'ap_paterno' => $faker->lastName(),
+                'ap_materno' => $faker->lastName(),
+                'ci' => $faker->unique()->randomNumber(9),
+                'fecha_nacimiento' => $faker->date('Y-m-d'),
+                'direccion' => $faker->address,
+                'telefono' => $faker->phoneNumber(),
+                'correo_electronico' => $faker->unique()->safeEmail,
             ]);
         }
     }

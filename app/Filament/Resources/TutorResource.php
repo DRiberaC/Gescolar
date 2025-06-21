@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\PersonalResource\Pages;
-use App\Filament\Resources\PersonalResource\RelationManagers;
-use App\Models\Personal;
+use App\Filament\Resources\TutorResource\Pages;
+use App\Filament\Resources\TutorResource\RelationManagers;
+use App\Models\Tutor;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -13,16 +13,16 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class PersonalResource extends Resource
+class TutorResource extends Resource
 {
-    protected static ?string $model = Personal::class;
+    protected static ?string $model = Tutor::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $label = 'Personal';
-    protected static ?string $pluralLabel = 'Personal';
+    protected static ?string $label = 'Tutor';
+    protected static ?string $pluralLabel = 'Tutores';
 
-    protected static ?string $slug = 'personal';
+    protected static ?string $slug = 'tutor';
 
     public static function form(Form $form): Form
     {
@@ -53,9 +53,6 @@ class PersonalResource extends Resource
                 Forms\Components\TextInput::make('correo_electronico')
                     ->maxLength(255)
                     ->default(null),
-                Forms\Components\TextInput::make('cargo')
-                    ->maxLength(255)
-                    ->default(null),
             ]);
     }
 
@@ -75,16 +72,12 @@ class PersonalResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('fecha_nacimiento')
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('telefono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('correo_electronico')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('cargo')
-                    ->searchable(),
-                // Tables\Columns\TextColumn::make('user_id')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -117,9 +110,9 @@ class PersonalResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListPersonals::route('/'),
-            'create' => Pages\CreatePersonal::route('/crear'),
-            'edit' => Pages\EditPersonal::route('/{record}/editar'),
+            'index' => Pages\ListTutors::route('/'),
+            'create' => Pages\CreateTutor::route('/crear'),
+            'edit' => Pages\EditTutor::route('/{record}/editar'),
         ];
     }
 }

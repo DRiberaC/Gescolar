@@ -1,0 +1,19 @@
+<?php
+
+namespace App\Filament\Resources\EstudianteResource\Pages;
+
+use App\Filament\Resources\EstudianteResource;
+use Filament\Actions;
+use Filament\Resources\Pages\CreateRecord;
+
+class CreateEstudiante extends CreateRecord
+{
+    protected static string $resource = EstudianteResource::class;
+
+    protected static bool $canCreateAnother = false;
+
+    protected function getRedirectUrl(): string
+    {
+        return $this->getResource()::getUrl('index');
+    }
+}
