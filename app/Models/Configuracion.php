@@ -10,9 +10,9 @@ class Configuracion extends Model
 
     protected $fillable = [
         'nombre',
-        // 'descripcion',
-        // 'direccion',
-        // 'telefono',
-        // 'correo_electronico'
+        'descripcion',
+        'direccion',
+        'telefono',
+        'correo_electronico'
     ];
 }
