@@ -31,8 +31,7 @@ class GradoResource extends Resource
                 Forms\Components\Section::make()->schema([
                     Forms\Components\TextInput::make('nombre')
                         ->required()
-                        ->maxLength(255)
-                        ->unique(ignoreRecord: true),
+                        ->maxLength(255),
 
                     Forms\Components\Textarea::make('descripcion')
                         ->nullable(),

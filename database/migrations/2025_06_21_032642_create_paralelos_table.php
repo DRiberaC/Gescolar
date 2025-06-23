@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
 
             $table->string('nombre');
-            $table->text('descripcion');
+            $table->text('descripcion')->nullable();
 
             $table->unsignedBigInteger('grado_id')->nullable();
             $table->foreign('grado_id')->references('id')->on('grados')->onDelete('set null');

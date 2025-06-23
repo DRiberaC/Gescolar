@@ -57,14 +57,9 @@ class MatriculaResource extends Resource
                                     return 'Estudiante no encontrado.';
                                 }
 
-                                // return "Nombre: {$estudiante->nombre} {$estudiante->ap_paterno} {$estudiante->ap_materno} \n" .
-                                //     "Teléfono: {$estudiante->telefono} \n";
-
                                 $lineas = [];
                                 $lineas[] = "**Nombre completo:** {$est->nombre} {$est->ap_paterno} {$est->ap_materno}";
                                 $lineas[] = "**CI:** {$est->ci}";
-                                // $lineas[] = "**Fecha de nacimiento:** " . \Carbon\Carbon::parse($est->fecha_nacimiento)->format('d/m/Y');
-                                // $lineas[] = "**Dirección:** {$est->direccion}";
 
                                 if ($est->telefono) {
                                     $lineas[] = "**Teléfono:** {$est->telefono}";
@@ -109,19 +104,17 @@ class MatriculaResource extends Resource
                         Forms\Components\Select::make('grado_id')
                             ->label('Grado')
                             ->reactive()
-                            ->options(function (callable $get, callable $set) {
+                            ->options(function (callable $get) {
                                 $nivelId = $get('nivel_id');
-
-                                // Reset paralelo_id si cambia el grado_id
-                                $set('paralelo_id', null);
-
                                 if (!$nivelId) {
                                     return [];
                                 }
-
                                 return \App\Models\Grado::where('nivel_id', $nivelId)
                                     ->pluck('nombre', 'id')
                                     ->toArray();
+                            })
+                            ->afterStateUpdated(function ($state, callable $set) {
+                                $set('paralelo_id', null);
                             })
                             ->required()
                             ->disabled(fn(callable $get) => !$get('nivel_id')),

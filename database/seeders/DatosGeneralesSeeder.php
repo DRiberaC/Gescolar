@@ -85,7 +85,7 @@ class DatosGeneralesSeeder extends Seeder
         Grado::create([
             'nombre' => 'Segundo',
             'descripcion' => 'Segundo Grado',
-            'nivel_id' => Nivel::where('nombre', 'Secundaria')->first()->id,
+            'nivel_id' => Nivel::where('nombre', 'Primaria')->first()->id,
         ]);
 
         Paralelo::create([
@@ -97,6 +97,17 @@ class DatosGeneralesSeeder extends Seeder
             'nombre' => 'B',
             'descripcion' => 'Paralelo B',
             'grado_id' => Grado::where('nombre', 'Primero')->first()->id,
+        ]);
+
+        Paralelo::create([
+            'nombre' => 'A',
+            'descripcion' => 'Paralelo A',
+            'grado_id' => Grado::where('nombre', 'Segundo')->first()->id,
+        ]);
+        Paralelo::create([
+            'nombre' => 'B',
+            'descripcion' => 'Paralelo B',
+            'grado_id' => Grado::where('nombre', 'Segundo')->first()->id,
         ]);
 
         Materia::create([
