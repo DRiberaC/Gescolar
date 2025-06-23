@@ -23,4 +23,9 @@ class Estudiante extends Model
     {
         return $this->belongsToMany(Tutor::class, 'estudiante_tutor');
     }
+
+    public function getNombreCompletoAttribute()
+    {
+        return $this->ap_paterno . ' ' . $this->ap_materno . ', ' . $this->nombre;
+    }
 }

@@ -18,18 +18,9 @@ class ViewMatricula extends ViewRecord
             Actions\Action::make('generar_pdf')
                 ->label('Generar PDF')
                 ->icon('heroicon-o-document-text')
-                ->action('generarPdf') // Método que defines abajo
+                ->url(fn() => route('reporte.pdf.matricula', ['id' => $this->record->id]))
+                ->openUrlInNewTab()
                 ->color('primary'),
         ];
-    }
-
-    public function generarPdf()
-    {
-        // $this->notify('success', 'El botón funciona. ¡Aquí generaremos el PDF!');
-        \Filament\Notifications\Notification::make()
-            ->title('El botón funciona')
-            ->body('¡Aquí generaremos el PDF!')
-            ->success()
-            ->send();
     }
 }
