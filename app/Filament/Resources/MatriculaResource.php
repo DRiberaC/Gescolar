@@ -38,9 +38,46 @@ class MatriculaResource extends Resource
                             ->getOptionLabelFromRecordUsing(
                                 fn($record) => $record->nombre . ' ' . $record->ap_paterno . ' ' . $record->ap_materno
                             )
-                            ->required(),
+                            ->required()
+                            ->reactive(),
 
                         Forms\Components\Placeholder::make('break1')->label(''),
+
+                        Forms\Components\Placeholder::make('datos_estudiante')
+                            ->label('Datos del estudiante')
+                            ->content(function (callable $get) {
+                                $id = $get('estudiante_id');
+
+                                if (!$id) {
+                                    return 'Seleccione un estudiante.';
+                                }
+
+                                $est = \App\Models\Estudiante::find($id);
+                                if (!$est) {
+                                    return 'Estudiante no encontrado.';
+                                }
+
+                                // return "Nombre: {$estudiante->nombre} {$estudiante->ap_paterno} {$estudiante->ap_materno} \n" .
+                                //     "Teléfono: {$estudiante->telefono} \n";
+
+                                $lineas = [];
+                                $lineas[] = "**Nombre completo:** {$est->nombre} {$est->ap_paterno} {$est->ap_materno}";
+                                $lineas[] = "**CI:** {$est->ci}";
+                                // $lineas[] = "**Fecha de nacimiento:** " . \Carbon\Carbon::parse($est->fecha_nacimiento)->format('d/m/Y');
+                                // $lineas[] = "**Dirección:** {$est->direccion}";
+
+                                if ($est->telefono) {
+                                    $lineas[] = "**Teléfono:** {$est->telefono}";
+                                }
+
+                                if ($est->correo_electronico) {
+                                    $lineas[] = "**Correo electrónico:** {$est->correo_electronico}";
+                                }
+
+                                return implode("\n", $lineas);
+                            })
+                            ->columnSpanFull()
+                            ->reactive(),
 
                         Forms\Components\Select::make('gestion_id')
                             ->label('Gestión')
