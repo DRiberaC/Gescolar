@@ -198,6 +198,7 @@ class MatriculaResource extends Resource
             ])
             ->actions([
                 // Tables\Actions\EditAction::make(),
+                Tables\Actions\ViewAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -218,6 +219,7 @@ class MatriculaResource extends Resource
         return [
             'index' => Pages\ListMatriculas::route('/'),
             'create' => Pages\CreateMatricula::route('/crear'),
+            'view' => Pages\ViewMatricula::route('/{record}'),
             // 'edit' => Pages\EditMatricula::route('/{record}/editar'),
         ];
     }
