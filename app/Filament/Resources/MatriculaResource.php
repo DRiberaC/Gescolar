@@ -156,35 +156,9 @@ class MatriculaResource extends Resource
                 Tables\Columns\TextColumn::make('nivel.nombre')->sortable()->label('Nivel')->sortable(),
                 Tables\Columns\TextColumn::make('grado.nombre')->sortable()->label('Grado')->sortable(),
                 Tables\Columns\TextColumn::make('paralelo.nombre')->sortable()->label('Paralelo')->sortable(),
-                // Tables\Columns\TextColumn::make('estudiante_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('gestion_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('periodo_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('nivel_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('grado_id')
-                //     ->numeric()
-                //     ->sortable(),
-                // Tables\Columns\TextColumn::make('paralelo_id')
-                //     ->numeric()
-                //     ->sortable(),
                 Tables\Columns\TextColumn::make('fecha')
                     ->date()
                     ->sortable(),
-                // Tables\Columns\TextColumn::make('created_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
-                // Tables\Columns\TextColumn::make('updated_at')
-                //     ->dateTime()
-                //     ->sortable()
-                //     ->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //
@@ -203,7 +177,7 @@ class MatriculaResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RelationManagers\PagosRelationManager::class,
         ];
     }
 
