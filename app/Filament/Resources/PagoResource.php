@@ -26,18 +26,34 @@ class PagoResource extends Resource
                 Forms\Components\TextInput::make('monto')
                     ->required()
                     ->numeric(),
-                Forms\Components\TextInput::make('metodo')
-                    ->required()
-                    ->maxLength(255),
+
                 Forms\Components\DatePicker::make('fecha')
                     ->required(),
-                Forms\Components\Textarea::make('descripcion')
-                    ->columnSpanFull(),
-                Forms\Components\TextInput::make('estado')
+
+                Forms\Components\Select::make('metodo')
+                    ->label('Método de pago')
+                    ->options([
+                        'efectivo' => 'Efectivo',
+                        'transferencia' => 'Transferencia',
+                        'tarjeta' => 'Tarjeta',
+                    ])
                     ->required(),
+
+                Forms\Components\Select::make('estado')
+                    ->label('Estado')
+                    ->options([
+                        'pendiente' => 'Pendiente',
+                        'completado' => 'Completado',
+                        'anulado' => 'Anulado',
+                    ]),
                 Forms\Components\TextInput::make('matricula_id')
                     ->required()
+                    ->disabled()
+                    ->hidden()
                     ->numeric(),
+
+                Forms\Components\Textarea::make('descripcion')
+                    ->columnSpanFull(),
             ]);
     }
 
@@ -49,11 +65,11 @@ class PagoResource extends Resource
                     ->numeric()
                     ->sortable()
                     ->money('Bs.'),
-                Tables\Columns\TextColumn::make('metodo')
-                    ->searchable(),
                 Tables\Columns\TextColumn::make('fecha')
                     ->date()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('metodo')
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('estado'),
                 Tables\Columns\TextColumn::make('matricula.estudiante.NombreCompleto')
                     ->numeric()

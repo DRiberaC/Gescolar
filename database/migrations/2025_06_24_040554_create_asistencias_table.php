@@ -11,17 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pagos', function (Blueprint $table) {
+        Schema::create('asistencias', function (Blueprint $table) {
             $table->id();
 
-            $table->decimal('monto', 8, 2);
-            $table->string('metodo');
+            $table->unsignedBigInteger('asignacion_id');
+            $table->foreign('asignacion_id')->references('id')->on('asignaciones')->onDelete('cascade');
+
             $table->date('fecha');
             $table->text('descripcion')->nullable();
-            $table->enum('estado', ['pendiente', 'realizado', 'anulado'])->default('realizado');
-
-            $table->unsignedBigInteger('matricula_id');
-            $table->foreign('matricula_id')->references('id')->on('matriculas')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pagos');
+        Schema::dropIfExists('asistencias');
     }
 };
