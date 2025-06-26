@@ -23,6 +23,12 @@ class CreatePersonal extends CreateRecord
     {
         if (empty($data['correo_electronico'])) {
             $correoGenerado = Str::slug($data['nombre'] . '.' . $data['ap_paterno']) . '@email.com';
+            $baseName = Str::lower($data['nombre'][0]);
+            $baseName .= Str::lower(Str::slug($data['ap_paterno']));
+            if (!empty($data['ap_materno'])) {
+                $baseName .= Str::lower($data['ap_materno'][0]);
+            }
+            $correoGenerado = $baseName . '@email.com';
             $data['correo_electronico'] = $correoGenerado;
         }
 
