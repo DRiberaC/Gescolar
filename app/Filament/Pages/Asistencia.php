@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Models\Asignacion;
 use Filament\Pages\Page;
 
+use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Filament\Tables;
@@ -25,21 +26,25 @@ class Asistencia extends Page implements HasTable
 
     public  $asignaciones;
 
-
-    // public function mount(): void
-    // {
-    //     $this->asignaciones = Asignacion::all();
-    // }
-
     public function table(Table $table): Table
     {
+        $user = Auth::user();
+        $query = Asignacion::query();
+        $personalId = $user->personal?->id;
+        $query->where('docente_id', $personalId);
+
+        // \Filament\Notifications\Notification::make()
+        //     ->success()
+        //     ->title('Data' . $user->id)
+        //     ->send();
+
         return $table
-            ->query(Asignacion::query())
+            ->query($query)
             ->columns([
-                Tables\Columns\TextColumn::make('id')->label('ID')->sortable(),
-                Tables\Columns\TextColumn::make('nombre')->label('Nombre')->searchable(),
+                Tables\Columns\TextColumn::make('gestion.nombre')->label('Gestión')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('curso.nombre')->label('Curso')->sortable()->searchable(),
+                Tables\Columns\TextColumn::make('materia.nombre')->label('Materia')->sortable()->searchable(),
                 Tables\Columns\TextColumn::make('descripcion')->label('Descripción')->wrap(),
-                Tables\Columns\TextColumn::make('created_at')->label('Creado')->dateTime(),
             ])
             ->actions([
                 \Filament\Tables\Actions\Action::make('ver')
