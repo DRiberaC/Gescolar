@@ -11,13 +11,11 @@ class Asignacion extends Model
     protected $fillable = [
         'docente_id',
         'gestion_id',
-        'nivel_id',
-        'grado_id',
-        'paralelo_id',
         'materia_id',
-        'turno_id',
+        'curso_id',
         'estado',
         'fecha',
+        'descripcion',
     ];
 
     public function docente()
@@ -30,28 +28,13 @@ class Asignacion extends Model
         return $this->belongsTo(Gestion::class);
     }
 
-    public function nivel()
-    {
-        return $this->belongsTo(Nivel::class);
-    }
-
-    public function grado()
-    {
-        return $this->belongsTo(Grado::class);
-    }
-
-    public function paralelo()
-    {
-        return $this->belongsTo(Paralelo::class);
-    }
-
     public function materia()
     {
         return $this->belongsTo(Materia::class);
     }
 
-    public function turno()
+    public function curso()
     {
-        return $this->belongsTo(Turno::class);
+        return $this->belongsTo(Curso::class);
     }
 }

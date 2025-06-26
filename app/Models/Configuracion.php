@@ -13,6 +13,12 @@ class Configuracion extends Model
         'descripcion',
         'direccion',
         'telefono',
-        'correo_electronico'
+        'correo_electronico',
+        'gestion_id',
     ];
+
+    public function gestion()
+    {
+        return $this->belongsTo(Gestion::class);
+    }
 }

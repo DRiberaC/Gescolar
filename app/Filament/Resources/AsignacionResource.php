@@ -22,7 +22,7 @@ class AsignacionResource extends Resource
     protected static ?string $label = 'Asignacion';
     protected static ?string $pluralLabel = 'Asignaciones';
 
-    protected static ?string $slug = 'Asignacion';
+    protected static ?string $slug = 'asignacion';
 
     public static function form(Form $form): Form
     {
@@ -40,7 +40,13 @@ class AsignacionResource extends Resource
                             ->required()
                             ->reactive(),
 
-                        Forms\Components\Placeholder::make('break1')->label(''),
+                        Forms\Components\Select::make('gestion_id')
+                            ->label('Gestión')
+                            ->relationship('gestion', 'nombre')
+                            ->default(function () {
+                                return \App\Models\Configuracion::first()->gestion_id ?? null;
+                            })
+                            ->required(),
 
                         Forms\Components\Placeholder::make('datos_docente')
                             ->label('Datos del Docente')
@@ -55,7 +61,6 @@ class AsignacionResource extends Resource
                                 if (!$doc) {
                                     return 'Docente no encontrado.';
                                 }
-
 
                                 $lineas = [];
                                 $lineas[] = "**Nombre completo:** {$doc->nombre} {$doc->ap_paterno} {$doc->ap_materno}";
@@ -74,59 +79,15 @@ class AsignacionResource extends Resource
                             ->columnSpanFull()
                             ->reactive(),
 
-                        Forms\Components\Select::make('gestion_id')
-                            ->label('Gestión')
-                            ->relationship('gestion', 'nombre')
-                            ->required(),
-
-                        Forms\Components\Select::make('nivel_id')
-                            ->label('Nivel')
-                            ->relationship('nivel', 'nombre')
+                        Forms\Components\Select::make('curso_id')
+                            ->label('Curso')
+                            ->relationship('curso', 'nombre')
                             ->required()
                             ->reactive(),
-
-                        Forms\Components\Select::make('grado_id')
-                            ->label('Grado')
-                            ->reactive()
-                            ->options(function (callable $get) {
-                                $nivelId = $get('nivel_id');
-                                if (!$nivelId) {
-                                    return [];
-                                }
-                                return \App\Models\Grado::where('nivel_id', $nivelId)
-                                    ->pluck('nombre', 'id')
-                                    ->toArray();
-                            })
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $set('paralelo_id', null);
-                            })
-                            ->required()
-                            ->disabled(fn(callable $get) => !$get('nivel_id')),
-
-                        Forms\Components\Select::make('paralelo_id')
-                            ->label('Paralelo')
-                            ->options(function (callable $get, callable $set, $livewire) {
-
-                                $gradoId = $get('grado_id');
-                                if (!$gradoId) {
-                                    return [];
-                                }
-
-                                return \App\Models\Paralelo::where('grado_id', $gradoId)
-                                    ->pluck('nombre', 'id')
-                                    ->toArray();
-                            })
-                            ->required()
-                            ->disabled(fn(callable $get) => !$get('grado_id')),
 
                         Forms\Components\Select::make('materia_id')
                             ->label('Materia')
                             ->relationship('materia', 'nombre')
-                            ->required(),
-
-                        Forms\Components\Select::make('turno_id')
-                            ->label('Turno')
-                            ->relationship('turno', 'nombre')
                             ->required(),
 
                         Forms\Components\Checkbox::make('estado')
@@ -139,6 +100,9 @@ class AsignacionResource extends Resource
                             ->label('Fecha')
                             ->default(now())
                             ->required(),
+
+                        Forms\Components\Textarea::make('descripcion')
+                            ->label('Descripción'),
                     ]),
             ]);
     }
@@ -154,24 +118,8 @@ class AsignacionResource extends Resource
                 Tables\Columns\TextColumn::make('gestion.nombre')
                     ->label('Gestión')
                     ->sortable(),
-                Tables\Columns\TextColumn::make('nivel.nombre')
-                    ->label('Nivel')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('grado.nombre')
-                    ->label('Grado')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('paralelo.nombre')
-                    ->label('Paralelo')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('materia.nombre')
-                    ->label('Materia')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('turno.nombre')
-                    ->label('Turno')
+                Tables\Columns\TextColumn::make('curso.nombre')
+                    ->label('Curso')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('estado')

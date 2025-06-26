@@ -10,6 +10,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Concerns\InteractsWithForms;
 use Filament\Actions\Action;
 use Filament\Forms\Components\Section;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Support\Exceptions\Halt;
 use Filament\Notifications\Notification;
@@ -30,17 +31,13 @@ class ConfiguracionGeneral extends Page implements HasForms
     {
         $this->config = Configuracion::first();
 
-        if ($this->config === null) {
-            // Si no existe un registro, crear uno nuevo
-            $this->config = new Configuracion();
-        }
-
         $this->form->fill($this->config->toArray());
     }
 
     public function form(Form $form): Form
     {
         return $form
+            ->model($this->config)
             ->schema([
                 Section::make()->schema([
                     TextInput::make('nombre')->required()->label('Nombre'),
@@ -48,6 +45,10 @@ class ConfiguracionGeneral extends Page implements HasForms
                     TextInput::make('telefono')->label('Teléfono'),
                     TextInput::make('correo_electronico')->email()->label('Correo Electrónico'),
                     Textarea::make('descripcion')->label('Descripción'),
+                    Select::make('gestion_id')
+                        ->label('Gestión')
+                        ->relationship('gestion', 'nombre')
+                        ->nullable(),
                 ])->columns([
                     'sm' => 2,
                     'xl' => 2,

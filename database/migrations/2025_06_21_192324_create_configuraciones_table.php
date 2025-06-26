@@ -20,6 +20,9 @@ return new class extends Migration
             $table->string('telefono')->nullable();
             $table->string('correo_electronico')->nullable();
 
+            $table->unsignedBigInteger('gestion_id')->nullable()->default(NULL);
+            $table->foreign('gestion_id')->references('id')->on('gestiones')->onDelete('set null');
+
             $table->timestamps();
         });
     }
