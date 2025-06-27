@@ -48,4 +48,9 @@ class Curso extends Model
     {
         return $this->hasMany(Asignacion::class);
     }
+
+    public function matriculas()
+    {
+        return $this->hasMany(Matricula::class);
+    }
 }

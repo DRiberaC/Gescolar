@@ -32,19 +32,26 @@ class MatriculaResource extends Resource
                     ->schema([
                         Forms\Components\Select::make('estudiante_id')
                             ->label('Estudiante')
-                            // ->columnSpanFull()
+                            ->reactive()
                             ->relationship('estudiante', 'nombre')
                             ->searchable()
                             ->getOptionLabelFromRecordUsing(
                                 fn($record) => $record->nombre . ' ' . $record->ap_paterno . ' ' . $record->ap_materno
                             )
-                            ->required()
-                            ->reactive(),
+                            ->required(),
 
-                        Forms\Components\Placeholder::make('break1')->label(''),
+                        Forms\Components\Select::make('gestion_id')
+                            ->label('Gestión')
+                            ->reactive()
+                            ->relationship('gestion', 'nombre')
+                            ->default(function () {
+                                return \App\Models\Configuracion::first()->gestion_id ?? null;
+                            })
+                            ->required(),
 
                         Forms\Components\Placeholder::make('datos_estudiante')
                             ->label('Datos del estudiante')
+                            ->reactive()
                             ->content(function (callable $get) {
                                 $id = $get('estudiante_id');
 
@@ -71,68 +78,24 @@ class MatriculaResource extends Resource
 
                                 return implode("\n", $lineas);
                             })
-                            ->columnSpanFull()
-                            ->reactive(),
+                            ->columnSpanFull(),
 
-                        Forms\Components\Select::make('gestion_id')
-                            ->label('Gestión')
-                            ->relationship('gestion', 'nombre')
-                            ->required()
-                            ->reactive(),
 
-                        Forms\Components\Select::make('periodo_id')
-                            ->label('Periodo')
+
+                        Forms\Components\Select::make('curso_id')
+                            ->label('Cursos')
                             ->options(function (callable $get) {
                                 $gestionId = $get('gestion_id');
                                 if (!$gestionId) {
                                     return [];
                                 }
 
-                                return \App\Models\Periodo::where('gestion_id', $gestionId)
+                                return \App\Models\Curso::where('gestion_id', $gestionId)
                                     ->pluck('nombre', 'id')
                                     ->toArray();
                             })
                             ->required()
                             ->disabled(fn(callable $get) => !$get('gestion_id')),
-
-                        Forms\Components\Select::make('nivel_id')
-                            ->label('Nivel')
-                            ->relationship('nivel', 'nombre')
-                            ->required()
-                            ->reactive(),
-
-                        Forms\Components\Select::make('grado_id')
-                            ->label('Grado')
-                            ->reactive()
-                            ->options(function (callable $get) {
-                                $nivelId = $get('nivel_id');
-                                if (!$nivelId) {
-                                    return [];
-                                }
-                                return \App\Models\Grado::where('nivel_id', $nivelId)
-                                    ->pluck('nombre', 'id')
-                                    ->toArray();
-                            })
-                            ->afterStateUpdated(function ($state, callable $set) {
-                                $set('paralelo_id', null);
-                            })
-                            ->required()
-                            ->disabled(fn(callable $get) => !$get('nivel_id')),
-
-                        Forms\Components\Select::make('paralelo_id')
-                            ->label('Paralelo')
-                            ->options(function (callable $get) {
-                                $gradoId = $get('grado_id');
-                                if (!$gradoId) {
-                                    return [];
-                                }
-
-                                return \App\Models\Paralelo::where('grado_id', $gradoId)
-                                    ->pluck('nombre', 'id')
-                                    ->toArray();
-                            })
-                            ->required()
-                            ->disabled(fn(callable $get) => !$get('grado_id')),
 
                         Forms\Components\Placeholder::make('break1')->label(''),
 
@@ -151,11 +114,7 @@ class MatriculaResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('estudiante.nombre')->sortable()->label('Estudiante')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('gestion.nombre')->sortable()->label('Gestión')->searchable()->sortable(),
-                Tables\Columns\TextColumn::make('periodo.nombre')->sortable()->label('Periodo')->sortable(),
-                Tables\Columns\TextColumn::make('nivel.nombre')->sortable()->label('Nivel')->sortable(),
-                Tables\Columns\TextColumn::make('grado.nombre')->sortable()->label('Grado')->sortable(),
-                Tables\Columns\TextColumn::make('paralelo.nombre')->sortable()->label('Paralelo')->sortable(),
+                Tables\Columns\TextColumn::make('curso.nombre')->sortable()->label('Curso')->searchable()->sortable(),
                 Tables\Columns\TextColumn::make('fecha')
                     ->date()
                     ->sortable(),

@@ -20,17 +20,8 @@ return new class extends Migration
             $table->unsignedBigInteger('gestion_id');
             $table->foreign('gestion_id')->references('id')->on('gestiones')->onDelete('cascade');
 
-            $table->unsignedBigInteger('periodo_id');
-            $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('cascade');
-
-            $table->unsignedBigInteger('nivel_id');
-            $table->foreign('nivel_id')->references('id')->on('niveles')->onDelete('cascade');
-
-            $table->unsignedBigInteger('grado_id');
-            $table->foreign('grado_id')->references('id')->on('grados')->onDelete('cascade');
-
-            $table->unsignedBigInteger('paralelo_id')->nullable();
-            $table->foreign('paralelo_id')->references('id')->on('paralelos')->onDelete('cascade');
+            $table->unsignedBigInteger('curso_id');
+            $table->foreign('curso_id')->references('id')->on('cursos')->onDelete('cascade');
 
             $table->date('fecha');
 

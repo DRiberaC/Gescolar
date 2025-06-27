@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('asistencia_detalles', function (Blueprint $table) {
             $table->id();
 
-            $table->text('estado')->default('presente');
+            $table->text('estado')->default('n/a');
 
             $table->text('observacion')->nullable();
 
