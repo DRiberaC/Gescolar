@@ -37,4 +37,9 @@ class Asignacion extends Model
     {
         return $this->belongsTo(Curso::class);
     }
+
+    public function calificaciones()
+    {
+        return $this->hasMany(Calificacion::class);
+    }
 }
