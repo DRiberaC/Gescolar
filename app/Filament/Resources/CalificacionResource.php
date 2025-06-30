@@ -51,6 +51,10 @@ class CalificacionResource extends Resource
                 //
             ])
             ->actions([
+                \Filament\Tables\Actions\Action::make('ver')
+                    ->label('Ver')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn($record) => route('filament.admin.pages.ver-calificacion', ['asignacionId' => $record->id])),
                 // Tables\Actions\ViewAction::make(),
                 // Tables\Actions\EditAction::make(),
             ])
