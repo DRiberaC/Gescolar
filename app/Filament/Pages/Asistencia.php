@@ -26,6 +26,8 @@ class Asistencia extends Page implements HasTable
 
     public  $asignaciones;
 
+    protected static ?string $navigationGroup = 'Otros';
+
     public function table(Table $table): Table
     {
         $user = Auth::user();

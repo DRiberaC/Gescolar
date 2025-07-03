@@ -24,6 +24,8 @@ class NivelResource extends Resource
 
     protected static ?string $slug = 'nivel';
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

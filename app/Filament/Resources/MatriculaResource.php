@@ -24,6 +24,8 @@ class MatriculaResource extends Resource
 
     protected static ?string $slug = 'matricula';
 
+    protected static ?string $navigationGroup = 'Inscripciones';
+
     public static function form(Form $form): Form
     {
         return $form

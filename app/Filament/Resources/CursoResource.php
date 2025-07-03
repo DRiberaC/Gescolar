@@ -24,6 +24,8 @@ class CursoResource extends Resource
 
     protected static ?string $slug = 'curso';
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

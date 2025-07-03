@@ -24,6 +24,8 @@ class PersonalResource extends Resource
 
     protected static ?string $slug = 'personal';
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

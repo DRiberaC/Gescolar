@@ -24,6 +24,10 @@ class PeriodoResource extends Resource
 
     protected static ?string $slug = 'periodo';
 
+    protected static bool $shouldRegisterNavigation = false;
+
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

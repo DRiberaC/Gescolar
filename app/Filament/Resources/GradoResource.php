@@ -24,6 +24,8 @@ class GradoResource extends Resource
 
     protected static ?string $slug = 'grado';
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

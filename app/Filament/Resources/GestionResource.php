@@ -24,6 +24,8 @@ class GestionResource extends Resource
 
     protected static ?string $slug = 'gestion';
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public static function form(Form $form): Form
     {
         return $form

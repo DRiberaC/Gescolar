@@ -27,6 +27,8 @@ class ConfiguracionGeneral extends Page implements HasForms
 
     public ?Configuracion $config;
 
+    protected static ?string $navigationGroup = 'Configuración';
+
     public function mount(): void
     {
         $this->config = Configuracion::first();
