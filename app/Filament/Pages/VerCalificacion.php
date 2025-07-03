@@ -3,7 +3,6 @@
 namespace App\Filament\Pages;
 
 use App\Filament\Resources\CalificacionResource;
-use App\Models\Calificacion;
 use Filament\Pages\Page;
 use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
@@ -11,6 +10,10 @@ use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder; // Asegúrate de importar Builder
+
+use App\Models\Asignacion as ModeloAsignacion;
+use App\Models\Calificacion as ModeloCalificacion;
+
 
 class VerCalificacion extends Page implements HasTable
 {
@@ -24,6 +27,11 @@ class VerCalificacion extends Page implements HasTable
 
     public ?int $asignacionId = null; // Propiedad para almacenar el ID
 
+    public ?ModeloAsignacion $asignacion = null;
+
+    public ?ModeloCalificacion $calificacion = null;
+
+
     // El método mount se ejecuta al cargar la página
     public function mount(): void
     {
@@ -32,6 +40,10 @@ class VerCalificacion extends Page implements HasTable
 
         // Es una buena práctica abortar si el ID no existe para evitar errores
         abort_if(!$this->asignacionId, 404);
+
+        if ($this->asignacionId) {
+            $this->asignacion = ModeloAsignacion::find($this->asignacionId);
+        }
     }
 
     public function table(Table $table): Table
@@ -39,7 +51,7 @@ class VerCalificacion extends Page implements HasTable
         return $table
             // Modificamos la consulta base para filtrar por asignacion_id
             ->query(
-                Calificacion::query()->where('asignacion_id', $this->asignacionId)
+                ModeloCalificacion::query()->where('asignacion_id', $this->asignacionId)
             )
             ->columns([
                 TextColumn::make('tipo')
@@ -57,8 +69,10 @@ class VerCalificacion extends Page implements HasTable
                 //
             ])
             ->actions([
-                Action::make('ver')
-                    ->label('Ver'),
+                \Filament\Tables\Actions\Action::make('ver')
+                    ->label('Ver asistencia')
+                    ->icon('heroicon-o-eye')
+                    ->url(fn($record) => route('filament.admin.pages.ver-calificacion-detalle', ['calificacionId' => $record->id])),
                 \Filament\Tables\Actions\EditAction::make()
                     ->label('Editar')
                     ->icon('heroicon-o-pencil-square')
@@ -130,7 +144,18 @@ class VerCalificacion extends Page implements HasTable
                     ]);
 
                     // Creamos el registro en la base de datos
-                    Calificacion::create($calificacionData);
+                    $this->calificacion = ModeloCalificacion::create($calificacionData);
+
+                    if ($this->asignacion && $this->asignacion->curso) {
+                        $matriculas = $this->asignacion->curso->matriculas;
+                        foreach ($matriculas as $matricula) {
+                            $estudiante = $matricula->estudiante;
+                            $this->calificacion->detalles()->create([
+                                'nota' => 0,
+                                'estudiante_id' => $estudiante->id,
+                            ]);
+                        }
+                    }
 
                     // Enviamos una notificación de éxito
                     \Filament\Notifications\Notification::make()

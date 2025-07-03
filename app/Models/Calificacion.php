@@ -20,7 +20,7 @@ class Calificacion extends Model
         return $this->belongsTo(Asignacion::class);
     }
 
-    public function calificacionDetalles()
+    public function detalles()
     {
         return $this->hasMany(CalificacionDetalle::class);
     }
