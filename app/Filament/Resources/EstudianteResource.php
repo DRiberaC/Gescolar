@@ -46,7 +46,7 @@ class EstudianteResource extends Resource
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('fecha_nacimiento')
                     ->required()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                /* ->toggleable(isToggledHiddenByDefault: true) */,
                 Forms\Components\Textarea::make('direccion')
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('telefono')
