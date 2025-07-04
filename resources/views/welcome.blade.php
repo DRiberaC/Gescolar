@@ -13,7 +13,7 @@
 </head>
 
 <body class="antialiased font-sans">
-    <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50">
+    <div class="bg-gray-50 ">
         <div
             class="relative min-h-screen flex flex-col items-center justify-center selection:bg-primary-500 selection:text-white">
             <div class="relative w-full max-w-2xl px-6 lg:max-w-7xl">
@@ -38,13 +38,14 @@
 
                     <div class="mt-12 text-center">
                         <a href="{{ url('admin/login') }}"
-                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            class="inline-block rounded-lg bg-primary-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
                             Iniciar Sesión
                         </a>
                     </div>
                 </main>
 
                 <footer class="py-16 text-center text-sm text-black dark:text-white/70">
+                    Gescolar
                 </footer>
             </div>
         </div>
