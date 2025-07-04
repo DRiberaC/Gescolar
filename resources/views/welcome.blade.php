@@ -38,7 +38,7 @@
 
                     <div class="mt-12 text-center">
                         <a href="{{ url('admin/login') }}"
-                            class="inline-block rounded-lg bg-primary-600 px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-primary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-600">
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Iniciar Sesión
                         </a>
                     </div>
