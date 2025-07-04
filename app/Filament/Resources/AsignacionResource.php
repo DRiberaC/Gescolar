@@ -26,7 +26,6 @@ class AsignacionResource extends Resource
 
     protected static ?string $navigationGroup = 'Otros';
 
-
     public static function form(Form $form): Form
     {
         return $form
