@@ -32,6 +32,15 @@ class ConfiguracionGeneral extends Page implements HasForms
     public function mount(): void
     {
         $this->config = Configuracion::first();
+        if (!$this->config) {
+            $this->config = Configuracion::create([
+                'nombre' => 'Gescolar',
+                'descripcion' => 'Sistema de gestión escolar',
+                'direccion' => 'Av. Principal #123',
+                'telefono' => '7777-7777',
+                'correo_electronico' => 'admin@mail.com',
+            ]);
+        }
 
         $this->form->fill($this->config->toArray());
     }
